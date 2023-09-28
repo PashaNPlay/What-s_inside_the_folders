@@ -39,7 +39,7 @@ public class Solution {
 
             System.out.println("Всего папок - " + (foldersCount.getValue() - 1));
             System.out.println("Всего файлов - " + filesCount.getValue());
-            System.out.println("Общий размер - " + totalSize);
+            System.out.println("Общий размер - " + totalSize.getValue());
         } else {
             System.out.println(pathString + " - не папка");
         }
