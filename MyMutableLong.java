@@ -11,8 +11,7 @@ public class MyMutableLong {
         value += l;
     }
 
-    @Override
-    public String toString() {
-        return "" + value;
+    public long getValue() {
+        return value;
     }
 }
