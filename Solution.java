@@ -16,26 +16,30 @@ public class Solution {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         String pathString = reader.readLine();
         Path path = Paths.get(pathString);
-        final long[] attributes = {0, 0, 0};
+
+        MyMutableInteger filesCount = new MyMutableInteger(0);
+        MyMutableInteger foldersCount = new MyMutableInteger(0);
+        MyMutableLong totalSize = new MyMutableLong(0L);
+
         if (Files.isDirectory(path)) {
             Files.walkFileTree(path, new SimpleFileVisitor<Path>(){
                 @Override
                 public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) throws IOException {
-                    attributes[0]++;
+                    foldersCount.increment();
                     return FileVisitResult.CONTINUE;
                 }
 
                 @Override
                 public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-                    attributes[1]++;
-                    attributes[2] += attrs.size();
+                    filesCount.increment();
+                    totalSize.add(attrs.size());
                     return FileVisitResult.CONTINUE;
                 }
             });
 
-            System.out.println("Всего папок - " + (attributes[0] - 1));
-            System.out.println("Всего файлов - " + attributes[1]);
-            System.out.println("Общий размер - " + attributes[2]);
+            System.out.println("Всего папок - " + (foldersCount.getValue() - 1));
+            System.out.println("Всего файлов - " + filesCount.getValue());
+            System.out.println("Общий размер - " + totalSize);
         } else {
             System.out.println(pathString + " - не папка");
         }
